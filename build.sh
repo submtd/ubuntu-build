@@ -5,7 +5,7 @@ cat /dev/zero | ssh-keygen -q -N ""
 
 # google chrome ppa
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
-sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
 
 # php 7.2 ppa
 sudo add-apt-repository -y ppa:ondrej/php
@@ -89,15 +89,48 @@ sudo systemctl restart redis-server
 # fix permissions on home directory
 sudo chown -R $USER:$(id -gn $USER) ~/
 
+# install php-cs-fixer
+composer global require friendsofphp/php-cs-fixer
+
+# add composer bin to path
+cat >> ~/.profile << EOF
+
+if [ -d "\$HOME/.composer/vendor/bin" ] ; then
+    PATH="\$HOME/.composer/vendor/bin:\$PATH"
+fi
+
+EOF
+
 # let's set up vim
 # install vim-plug
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 # write base .vimrc file
-dd of=~/.vimrc << EOF
+mkdir -p ~/.config/nvim
+cat > ~/.config/nvim/init.vim << EOF
+set nocompatible
+
 " set up vim-plug
 call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
+Plug 'stephpy/vim-php-cs-fixer'
+Plug 'ctrlpvim/ctrlp.vim'
 call plug#end()
+
+" /**
+"  * BASIC SETTINGS
+"  **/
+" syntax highlighting
+syntax enable
+" filetype plugin
+filetype plugin on
+" set the path
+set path+=**
+" display the wildmenu
+set wildmenu
+" tabs to spaces
+set tabstop=4
+set shiftwidth=4
+set expandtab
 
 " /**
 "  * MAPPINGS
@@ -128,6 +161,13 @@ nmap <S-j> <C-w>-
 nmap <S-k> <C-w>+
 " make current split wider
 nmap <S-l> <C-w>>
+
+" /**
+"  * AUTO COMMANDS
+"  **/
+" php-cs-fixer
+autocmd BufWritePost *.php silent! call PhpCsFixerFixFile()
+
 EOF
 
 
