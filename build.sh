@@ -89,3 +89,45 @@ sudo systemctl restart redis-server
 # fix permissions on home directory
 sudo chown -R $USER:$(id -gn $USER) ~/
 
+# let's set up vim
+# install vim-plug
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# write base .vimrc file
+dd of=~/.vimrc << EOF
+" set up vim-plug
+call plug#begin('~/.vim/plugged')
+Plug 'scrooloose/nerdtree'
+call plug#end()
+
+" /**
+"  * MAPPINGS
+"  **/
+" toggle nerdtree
+nmap <C-b> :NERDTreeToggle<CR>
+" move to split to the left
+nmap <C-h> <C-w><C-h>
+" move to split below
+nmap <C-j> <C-w><C-j>
+" move to split above
+nmap <C-k> <C-w><C-k>
+" move to split to the right
+nmap <C-l> <C-w><C-l>
+" create a split to the left
+nmap <M-h> :set splitright&<CR>:vsp<CR>
+" create a split below
+nmap <M-j> :set splitbelow<CR>:sp<CR>
+" create a split above
+nmap <M-k> :set splitbelow&<CR>:sp<CR>
+" create a split to the right
+nmap <M-l> :set splitright<CR>:vsp<CR>
+" make current split narrower
+nmap <S-h> <C-w><lt>
+" make current split shorter
+nmap <S-j> <C-w>-
+" make current split taller
+nmap <S-k> <C-w>+
+" make current split wider
+nmap <S-l> <C-w>>
+EOF
+
+
