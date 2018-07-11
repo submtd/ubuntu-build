@@ -7,12 +7,13 @@ Plug 'scrooloose/nerdtree'
 Plug 'stephpy/vim-php-cs-fixer'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'flazz/vim-colorschemes'
-Plug 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'arnaud-lb/vim-php-namespace'
 Plug 'w0rp/ale'
+Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 call plug#end()
 
 " /**
