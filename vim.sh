@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # install some dependencies
-sudo apt install -y build-essential cmake python-dev python3-dev exuberant-ctags
+sudo apt install -y build-essential cmake python-dev python3-dev exuberant-ctags fonts-powerline
 
 # install vim-plug
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

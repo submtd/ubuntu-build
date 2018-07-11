@@ -8,6 +8,8 @@ Plug 'stephpy/vim-php-cs-fixer'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'flazz/vim-colorschemes'
 Plug 'Valloric/YouCompleteMe'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
 " /**
@@ -50,6 +52,8 @@ let g:ctrlp_custom_ignore = 'node_modules\DS_Store\|git'
 let g:ctrlp_match_window = 'top,order:ttb,min:1,max:30,results:30'
 " php-cs-fixer
 let g:php_cs_fixer_rules = "@PSR2"
+" airline
+let g:airline#extensions#tabline#enabled = 1
 
 " /**
 "  * MAPPINGS
