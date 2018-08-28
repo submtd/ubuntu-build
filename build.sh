@@ -12,15 +12,18 @@ sudo add-apt-repository -y ppa:chris-lea/redis-server
 # node 9x ppa
 curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
 
+# mysql 8
+wget -c https://dev.mysql.com/get/mysql-apt-config_0.8.10-1_all.deb 
+sudo dpkg -i mysql-apt-config_0.8.10-1_all.deb 
+rm mysql-apt-config_0.8.10-1_all.deb 
+
 # update apt
 sudo apt update
 
 # install stuff
-sudo apt install -y git curl wget htop tree ranger gnome-tweak-tool google-chrome-stable \
-	php7.2-fpm php7.2-cli php7.2-sqlite3 php7.2-mysql php7.2-gd php7.2-curl php7.2-memcached \
-	php7.2-imap php7.2-mbstring php7.2-xml php7.2-zip php7.2-bcmath php7.2-soap php7.2-intl \
-	php7.2-readline php7.2-dev php-pear nginx redis-server nodejs mariadb-server mariadb-client \
-	net-tools iproute2
+sudo apt install -y git php7.2-fpm php7.2-cli php7.2-sqlite3 php7.2-mysql php7.2-gd php7.2-curl \
+        php7.2-memcached php7.2-imap php7.2-mbstring php7.2-xml php7.2-zip php7.2-bcmath php7.2-soap \
+	php7.2-intl php7.2-readline php7.2-dev php-pear nginx redis-server nodejs mysql-server
 
 # install composer
 curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
@@ -68,10 +71,6 @@ sudo sed -i -e "s/user www-data;/user $USER;/g" /etc/nginx/nginx.conf
 # install some npm utils
 sudo npm install -g gulp
 sudo npm install -g yarn
-
-# allow non sudo for mysql
-sudo mysql -u root -e "UPDATE mysql.user SET plugin = 'mysql_native_password' WHERE user = 'root' AND plugin = 'auth_socket';"
-sudo mysql -u root -e "FLUSH PRIVILEGES;"
 
 # restart all services
 sudo systemctl restart php7.2-fpm
