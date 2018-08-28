@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# set up ssh key
-cat /dev/zero | ssh-keygen -q -N ""
-
-# google chrome ppa
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
-sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
-
 # php 7.2 ppa
 sudo add-apt-repository -y ppa:ondrej/php
 
@@ -23,7 +16,7 @@ curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
 sudo apt update
 
 # install stuff
-sudo apt install -y git curl wget htop neovim tree ranger gnome-tweak-tool google-chrome-stable \
+sudo apt install -y git curl wget htop tree ranger gnome-tweak-tool google-chrome-stable \
 	php7.2-fpm php7.2-cli php7.2-sqlite3 php7.2-mysql php7.2-gd php7.2-curl php7.2-memcached \
 	php7.2-imap php7.2-mbstring php7.2-xml php7.2-zip php7.2-bcmath php7.2-soap php7.2-intl \
 	php7.2-readline php7.2-dev php-pear nginx redis-server nodejs mariadb-server mariadb-client \
@@ -91,6 +84,14 @@ sudo chown -R $USER:$(id -gn $USER) ~/
 
 # install php-cs-fixer
 composer global require friendsofphp/php-cs-fixer
+composer global require phpunit/phpunit
+composer global require phpunit/dbunit
+composer global require phing/phing
+composer global require phpdocumentor/phpdocumentor
+composer global require sebastian/phpcpd
+composer global require phploc/phploc
+composer global require phpmd/phpmd
+composer global require squizlabs/php_codesniffer
 
 # add composer bin to path
 cat >> ~/.profile << EOF
